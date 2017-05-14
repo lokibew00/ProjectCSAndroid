@@ -1,8 +1,8 @@
 package com.example.bewkitsada.loginregistration2.fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +12,12 @@ import android.view.ViewGroup;
 import com.example.bewkitsada.loginregistration2.R;
 import com.example.bewkitsada.loginregistration2.models.RequestInterface;
 import com.example.bewkitsada.loginregistration2.models.ServerResponse;
+import com.example.bewkitsada.loginregistration2.models.machineprocess.MachineAdapter;
+import com.example.bewkitsada.loginregistration2.models.machineprocess.MachineName;
 import com.example.bewkitsada.loginregistration2.string.Constants;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,14 +33,15 @@ import static android.content.ContentValues.TAG;
 
 public class MachineNameFragment extends Fragment {
 
-    protected RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private ArrayList<MachineName> data;
+    private MachineAdapter adapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadJSON();
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
-
+        loadJSON();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,27 +50,36 @@ public class MachineNameFragment extends Fragment {
         view.setTag(TAG);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
         return view;
     }
 
-    private void loadJSON(){
+//    public void initFragment(View view){
+//        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+//        recyclerView.setHasFixedSize(true);
+//    }
+
+    private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);
         Call<ServerResponse> call = request.getJSON();
-        call.enqueue(new Callback<ServerResponse>(){
+        call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
 
-                ServerResponse resp = response.body();
-                Snackbar.make(getView(),resp.getMessage(), Snackbar.LENGTH_LONG).show();
+                ServerResponse jsonResponse = response.body();
+                data = new ArrayList<>(Arrays.asList(jsonResponse.getMachinename()));
+                adapter = new MachineAdapter(data);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                Log.d("Error",t.getMessage());
+                Log.d("Error", t.getMessage());
             }
         });
     }

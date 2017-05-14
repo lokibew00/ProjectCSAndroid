@@ -1,7 +1,6 @@
 package com.example.bewkitsada.loginregistration2;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.bewkitsada.loginregistration2.fragment.MachineNameFragment;
 import com.example.bewkitsada.loginregistration2.fragment.ProfileFragment;
 import com.example.bewkitsada.loginregistration2.string.Constants;
 
@@ -49,10 +49,17 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
         SharedPreferences share = getSharedPreferences("first" , Context.MODE_PRIVATE);
         tv_name.setText(share.getString(Constants.NAME , ""));
         tv_username.setText(share.getString(Constants.USERNAME , ""));
+//        syncFragment();
+
 
     }
 
-
+    public void syncFragment(){
+        MachineNameFragment machineNameFragment = new MachineNameFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.recyclerView, machineNameFragment);
+        ft.commit();
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -97,8 +104,7 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
                 break;
 
             case R.id.nav_machine:
-                Intent in = new Intent(FirstActivity.this , MachineActivity.class);
-                startActivity(in);
+                fragment = new MachineNameFragment();
                 break;
         }
 
