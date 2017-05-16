@@ -5,6 +5,7 @@ package com.example.bewkitsada.loginregistration2.models.machineprocess;
  */
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bewkitsada.loginregistration2.R;
+import com.example.bewkitsada.loginregistration2.fragment.MachineDetailFragment;
 import com.example.bewkitsada.loginregistration2.models.ItemClickListener;
 
 import java.util.ArrayList;
@@ -41,6 +43,10 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.ViewHold
             @Override
             public void onClick(View view, int i) {
                 Toast.makeText(view.getContext(), "Number: " + i, Toast.LENGTH_SHORT).show();
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                MachineDetailFragment myFragment = new MachineDetailFragment();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, myFragment).addToBackStack(null).commit();
             }
         });
 
