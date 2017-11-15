@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_cp"
+            android:title="Change Password"
+            />
+        <item
+            android:id="@+id/nav_machine"
+            android:title="Machine"
+            />
+        <item
+            android:id="@+id/nav_booked"
+            android:title="Booked Status"
+            />
+        <item
+            android:id="@+id/nav_request"
+            android:title="Booking Request"
+            />
+    </group>
+
+</menu>
