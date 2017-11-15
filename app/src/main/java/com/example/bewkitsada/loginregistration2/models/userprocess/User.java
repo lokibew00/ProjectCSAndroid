@@ -9,6 +9,9 @@ public class User {
     private String password;
     private String old_password;
     private String new_password;
+    private String user_statusID;
+    private String user_statusDetail;
+    private String user_id;
 
 
     public String getName() {
@@ -23,6 +26,12 @@ public class User {
         return unique_id;
     }
 
+    public String getUser_statusDetail(){ return user_statusDetail;}
+    public String getUser_statusID(){ return user_statusID; }
+
+    public String getUser_id() {
+        return user_id;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -39,6 +48,10 @@ public class User {
     public void setOld_password(String old_password) {
         this.old_password = old_password;
     }
+//
+//    public void setStatus_userDetail(String user_statusDetail) {
+//        this.user_statusDetail = user_statusDetail;
+//    }
 
     public void setNew_password(String new_password) {
         this.new_password = new_password;

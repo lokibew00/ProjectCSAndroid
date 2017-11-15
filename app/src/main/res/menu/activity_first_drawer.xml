@@ -10,6 +10,10 @@
             android:id="@+id/nav_machine"
             android:title="Machine"
             />
+        <item
+            android:id="@+id/nav_booked"
+            android:title="Booked Status"
+            />
     </group>
 
 </menu>

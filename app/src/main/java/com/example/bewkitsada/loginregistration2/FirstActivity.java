@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.bewkitsada.loginregistration2.fragment.BookedHistoryFragment;
 import com.example.bewkitsada.loginregistration2.fragment.MachineNameFragment;
 import com.example.bewkitsada.loginregistration2.fragment.ProfileFragment;
 import com.example.bewkitsada.loginregistration2.string.Constants;
@@ -32,7 +33,18 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first);
+        SharedPreferences share = getSharedPreferences("first", Context.MODE_PRIVATE);
+        int layout = 0;
+        if (share.getString(Constants.STATUS_DETAIL,"").equals("Teacher")){
+            layout = R.layout.activity_teacher;
+            Log.d("teacher" , "Active");
+        } else
+//            (share.getString(Constants.STATUS_DETAIL,"") == "StudentMic")
+        {
+            layout = R.layout.activity_first;
+            Log.d("student" , "Active : "+ share.getString(Constants.STATUS_DETAIL,""));
+        }
+        setContentView(layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,19 +59,29 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
         View header = navigationView.getHeaderView(0);
         tv_name = (TextView) header.findViewById(R.id.tv_name);
         tv_username = (TextView) header.findViewById(R.id.tv_username);
-        SharedPreferences share = getSharedPreferences("first", Context.MODE_PRIVATE);
-        tv_name.setText(share.getString(Constants.NAME, ""));
-        tv_username.setText(share.getString(Constants.USERNAME, ""));
-//        if (savedInstanceState == null) {
-//            syncFragment();
-//        }
+        tv_name.setText("Name : "+share.getString(Constants.NAME, ""));
+        tv_username.setText("Status : "+share.getString(Constants.STATUS_DETAIL, ""));
+        if (savedInstanceState == null) {
+            syncFragment();
+        }
 
     }
 
     public void syncFragment() {
-        Fragment machineNameFragment = new MachineNameFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.recyclerView, machineNameFragment).commit();
+//        MachineNameFragment machineNameFragment = new MachineNameFragment();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.add(R.id.fragment_frame, machineNameFragment).commit();
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        fragmentClass = MachineNameFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+
     }
 
     @Override
@@ -68,8 +90,14 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-        }
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack(null, android.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    getFragmentManager().beginTransaction().commit();
+                }
+                else {
+                    super.onBackPressed();
+                }
+            }
     }
 
     @Override
@@ -106,6 +134,11 @@ public class FirstActivity extends AppCompatActivity implements NavigationView.O
         } else if (id == R.id.nav_machine) {
             fragmentClass = MachineNameFragment.class;
             setTitle("Main Machine");
+        } else if (id == R.id.nav_booked){
+            fragmentClass = BookedHistoryFragment.class;
+            setTitle("BOOKED");
+        } else if (id == R.id.nav_request){
+
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();

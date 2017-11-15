@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    private TextView tv_name,tv_email,tv_message;
+    private TextView tv_name,tv_email,tv_message , tv_username;
     private SharedPreferences pref;
     private AppCompatButton btn_change_password,btn_logout;
     private EditText et_old_password,et_new_password;
@@ -53,14 +53,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         pref = getActivity().getSharedPreferences("first" , Context.MODE_PRIVATE);
         tv_name.setText("Welcome : "+pref.getString(Constants.NAME,""));
-        tv_email.setText(pref.getString(Constants.USERNAME,""));
-
+        tv_email.setText("Status : "+pref.getString(Constants.STATUS_DETAIL,""));
+        tv_username.setText("Username : "+pref.getString(Constants.USERNAME,""));
     }
 
     private void initViews(View view){
 
         tv_name = (TextView)view.findViewById(R.id.tv_name);
         tv_email = (TextView)view.findViewById(R.id.tv_email);
+        tv_username = (TextView)view.findViewById(R.id.tv_username);
         btn_change_password = (AppCompatButton)view.findViewById(R.id.btn_chg_password);
         btn_logout = (AppCompatButton)view.findViewById(R.id.btn_logout);
         btn_change_password.setOnClickListener(this);
@@ -85,7 +86,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel",     new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -131,6 +132,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editor.putString(Constants.USERNAME,"");
         editor.putString(Constants.NAME,"");
         editor.putString(Constants.UNIQUE_ID,"");
+        editor.putString(Constants.STATUS_DETAIL,"");
         editor.apply();
         goToLogin();
     }

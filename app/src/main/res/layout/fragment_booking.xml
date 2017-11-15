@@ -1,0 +1,164 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bewkitsada.loginregistration2.fragment.BookingFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/et_user"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_date"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/et_date"
+            android:layout_below="@+id/et_machinename"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et_date"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/et_user"
+            android:layout_marginTop="27dp"
+            android:layout_toRightOf="@+id/bt_clear"
+            android:ems="10"
+            android:hint="yyyy-mm-ss hh:ss"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/et_machinename"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_user"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/et_user"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/et_time"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_date"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/et_date"
+            android:layout_below="@+id/et_date"
+            android:layout_marginTop="22dp"
+            android:ems="10"
+            android:hint="yyyy-mm-dd hh:ss"
+            android:inputType="time" />
+
+        <Button
+            android:id="@+id/bt_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
+            android:text="Clear"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="93dp" />
+
+        <Button
+            android:id="@+id/bt_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bt_clear"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
+            android:layout_toEndOf="@+id/bt_clear"
+            android:layout_toRightOf="@+id/bt_clear"
+            android:text="Submit" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Machine :"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User:"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_alignBaseline="@+id/et_user"
+            android:layout_alignBottom="@+id/et_user"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="StartDate:"
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_alignBaseline="@+id/et_date"
+            android:layout_alignBottom="@+id/et_date"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EndDate:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="30sp"
+            android:layout_alignBottom="@+id/et_time"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="37dp"
+            android:text="Teacher"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:layout_below="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView10"
+            android:layout_alignLeft="@+id/et_time"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/et_time"
+            android:layout_alignTop="@+id/textView10" />
+
+    </RelativeLayout>
+
+</FrameLayout>

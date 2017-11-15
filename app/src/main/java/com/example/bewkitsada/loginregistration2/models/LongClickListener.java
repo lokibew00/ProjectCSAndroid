@@ -6,7 +6,6 @@ import android.view.View;
  * Created by bewkitsada on 17/5/2560.
  */
 
-public interface ItemClickListener {
-    void onClick (View view , int position);
-//    void onLongClick(View view , int position);
+public interface LongClickListener {
+    boolean onLongClick(View view , int position);
 }

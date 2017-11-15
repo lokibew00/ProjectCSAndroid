@@ -12,4 +12,5 @@ public interface RequestInterface {
 
     @GET("android_api/server/testjson.php")
     Call<ServerResponse> getJSON();
+
 }

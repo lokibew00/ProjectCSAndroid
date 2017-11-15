@@ -105,11 +105,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (resp.getResult().equals(Constants.SUCCESS)) {
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putBoolean(Constants.IS_LOGGED_IN, true);
+                    editor.putString(Constants.USER_ID , resp.getUser().getUser_id());
                     editor.putString(Constants.USERNAME, resp.getUser().getUsername());
                     editor.putString(Constants.NAME, resp.getUser().getName());
-                    editor.putString(Constants.UNIQUE_ID, resp.getUser().getUnique_id());
+//                    editor.putString(Constants.UNIQUE_ID, resp.getUser().getUnique_id());
+                    editor.putString(Constants.STATUS_DETAIL,resp.getUser().getUser_statusDetail());
                     editor.apply();
-                    goToProfile();
+                    goToFirst();
 
                 }
                 progress.setVisibility(View.INVISIBLE);
@@ -127,7 +129,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void goToProfile() {
+    private void goToFirst() {
         Intent in = new Intent(getActivity(),FirstActivity.class);
 
         startActivity(in);
